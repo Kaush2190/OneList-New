@@ -57,15 +57,17 @@ public class RegisterSignIn extends Activity {
             public void onClick(View v) {
                 username = username1.getText().toString();
                 password = password1.getText().toString();
-                Buddy.createUser(username, password, null, null, null, null, null, null, new BuddyCallback<User>(User.class) {
+                Buddy.createUser(username, password, null, null, null, null, null, "tag", new BuddyCallback<User>(User.class) {
                     @Override
                     public void completed(BuddyResult<User> result) {
                         if (result.getIsSuccess()) {
-                            Log.w(APP_LOG, "User created: " + result.getResult().userName);
+                            Log.w(APP_LOG, "User created");
                             Intent main = new Intent(RegisterSignIn.this, MainActivity.class);
                             startActivityForResult(main, RETURN);
                         } else {
                             Log.w(APP_LOG, "Failed");
+                            Log.w(APP_LOG, username);
+                            Log.w(APP_LOG, password);
                         }
                     }
                 });
