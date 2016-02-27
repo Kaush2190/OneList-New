@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         //test stuff
         t1 =+ t2;
+        t2 -= t1;
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
