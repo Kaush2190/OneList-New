@@ -16,8 +16,14 @@ import com.buddy.sdk.Buddy;
 
 public class MainActivity extends AppCompatActivity {
 
+    //did this change register in git hub
+
     private final int RETURN = 1;
     private TextView register;
+
+    //test stuff
+    private int t1=3;
+    private int t2=4;
 
 
 
@@ -40,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(register, RETURN);
             }
         });
+
+        //test stuff
+        t1 =+ t2;
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
