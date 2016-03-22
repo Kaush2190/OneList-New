@@ -16,16 +16,24 @@ public class OneListSQLiteHandler extends SQLiteOpenHelper {
     private static final String COLUMN_USERNAME = "_username";
 
     public OneListSQLiteHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+        super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        String querry = "CREATE TABLE" + TABLE_NAME + "(" +
+                COLUMN_ID + " INTEGER PRIMARY KEY " +
+                COLUMN_USERNAME + " TEXT " + ");";
+
+        db.execSQL(querry);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
     }
 }
