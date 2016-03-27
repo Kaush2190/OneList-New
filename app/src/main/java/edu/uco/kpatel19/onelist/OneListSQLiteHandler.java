@@ -1,5 +1,6 @@
 package edu.uco.kpatel19.onelist;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -24,7 +25,7 @@ public class OneListSQLiteHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String querry = "CREATE TABLE" + TABLE_NAME + "(" +
-                COLUMN_ID + " INTEGER PRIMARY KEY " +
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT" +
                 COLUMN_USERNAME + " TEXT " +
                 COLUMN_LISTNAME + " TEXT " + ");";
 
@@ -37,4 +38,32 @@ public class OneListSQLiteHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
+
+    //add new item
+    public void addUser(UserInfo user)
+    {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USERNAME, user.get_username());
+        SQLiteDatabase db = getWritableDatabase();
+        db.insert(TABLE_NAME, null, values);
+        db.close();
+
+    }
+
+    //delete item
+    public void deleteUser(String username)
+    {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_USERNAME + "=\"" + username + "\";"  );
+
+    }
+
+    //print db
+    public String dbToString(){
+
+
+        return "";
+    }
+
+
 }
