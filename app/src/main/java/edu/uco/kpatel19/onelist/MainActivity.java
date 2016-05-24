@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final int RETURN = 1;
     private TextView register;
+    private OneListSQLiteHandler sqlLiteHanlder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        sqlLiteHanlder = new OneListSQLiteHandler(this,null,null,1);
 
         Context myContext = getApplicationContext(); // If there is no context, set myContext to null
         Buddy.init(getApplicationContext(), "bbbbbc.FDwkLFntvPmdc", "ccfe27f2-4eee-9bea-8000-0f4b92ec4243");

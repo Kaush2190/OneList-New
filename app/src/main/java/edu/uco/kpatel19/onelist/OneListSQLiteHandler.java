@@ -2,6 +2,7 @@ package edu.uco.kpatel19.onelist;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -15,7 +16,6 @@ public class OneListSQLiteHandler extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "User_Info";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_USERNAME = "_username";
-    private static final String COLUMN_LISTNAME = "_listname";
 
     public OneListSQLiteHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
@@ -26,8 +26,7 @@ public class OneListSQLiteHandler extends SQLiteOpenHelper {
 
         String querry = "CREATE TABLE" + TABLE_NAME + "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT" +
-                COLUMN_USERNAME + " TEXT " +
-                COLUMN_LISTNAME + " TEXT " + ");";
+                COLUMN_USERNAME + " TEXT " + ");";
 
         db.execSQL(querry);
     }
@@ -61,8 +60,19 @@ public class OneListSQLiteHandler extends SQLiteOpenHelper {
     //print db
     public String dbToString(){
 
-
-        return "";
+        String dataString = "";
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE 1";
+        Cursor cursor = db.rawQuery(query,null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast());
+        {
+            if(cursor.getString(cursor.getColumnIndex("_username"))!= null);
+            dataString += cursor.getString(cursor.getColumnIndex("_username"));
+            dataString += "\n";
+        }
+        db.close();
+        return dataString;
     }
 
 

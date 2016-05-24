@@ -1,9 +1,8 @@
 package edu.uco.kpatel19.onelist;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
-import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,8 +12,6 @@ import com.buddy.sdk.Buddy;
 import com.buddy.sdk.BuddyCallback;
 import com.buddy.sdk.BuddyResult;
 import com.buddy.sdk.models.User;
-
-import java.util.Date;
 
 public class RegisterSignIn extends Activity {
 
@@ -26,6 +23,7 @@ public class RegisterSignIn extends Activity {
     private String password;
     private final int RETURN = 1;
     private String APP_LOG = "This:";
+    private OneListSQLiteHandler sqlLiteHanlder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +34,8 @@ public class RegisterSignIn extends Activity {
         password1 = (EditText) findViewById(R.id.passwordEditText);
         Signin = (Button) findViewById(R.id.signInButton);
         Register = (Button) findViewById(R.id.registerButton);
+        sqlLiteHanlder = new OneListSQLiteHandler(this,null,null,1);
+
 
         Signin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +46,8 @@ public class RegisterSignIn extends Activity {
                     @Override
                     public void completed(BuddyResult<User> result) {
                         Intent main = new Intent(RegisterSignIn.this, MainActivity.class);
+                        UserInfo userInfo = new UserInfo(username);
+                        sqlLiteHanlder.addUser(userInfo);
                         startActivityForResult(main, RETURN);
                     }
                 });
