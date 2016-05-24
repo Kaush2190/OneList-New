@@ -38,6 +38,20 @@ public class OneListSQLiteHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public boolean sqlliteExists () {
+        SQLiteDatabase db = getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '"+TABLE_NAME+"'", null);
+        if(cursor!=null) {
+            if(cursor.getCount()>0) {
+                cursor.close();
+                return true;
+            }
+            cursor.close();
+        }
+        return false;
+    }
+
     //add new item
     public void addUser(UserInfo user)
     {
