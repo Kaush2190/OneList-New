@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.buddy.sdk.Buddy;
 import com.buddy.sdk.BuddyCallback;
@@ -46,6 +47,7 @@ public class RegisterSignIn extends Activity {
                     @Override
                     public void completed(BuddyResult<User> result) {
                         Intent main = new Intent(RegisterSignIn.this, MainActivity.class);
+                        main.putExtra("username", username);
                         startActivityForResult(main, RETURN);
                     }
                 });
@@ -68,6 +70,8 @@ public class RegisterSignIn extends Activity {
                             Log.w(APP_LOG, "Failed");
                             Log.w(APP_LOG, username);
                             Log.w(APP_LOG, password);
+                            Toast.makeText(RegisterSignIn.this, "User Already Exists. Please select a different Username.",
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
                 });

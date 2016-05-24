@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView register;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
