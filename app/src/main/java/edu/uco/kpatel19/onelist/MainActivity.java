@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         yourLists = (TextView) findViewById(R.id.textVYourLists);
 
         if(username.equals(DEFAULT)) {
-            Log.i(TAG,"1");
             register.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent register = new Intent(MainActivity.this, RegisterSignIn.class);
@@ -69,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
             });
 
         }
-        Log.i(TAG,"2");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
