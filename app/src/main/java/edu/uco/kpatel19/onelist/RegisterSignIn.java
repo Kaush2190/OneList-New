@@ -1,6 +1,8 @@
 package edu.uco.kpatel19.onelist;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Activity;
 import android.text.Editable;
@@ -43,6 +45,12 @@ public class RegisterSignIn extends Activity {
             public void onClick(View v) {
                 username = username1.getText().toString();
                 password = password1.getText().toString();
+
+                SharedPreferences sharedPreferences = getSharedPreferences("OneListData", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("userName", username1.getText().toString());
+                editor.commit();
+
                 Buddy.loginUser(username, password, new BuddyCallback<User>(User.class) {
                     @Override
                     public void completed(BuddyResult<User> result) {
@@ -59,6 +67,12 @@ public class RegisterSignIn extends Activity {
             public void onClick(View v) {
                 username = username1.getText().toString();
                 password = password1.getText().toString();
+
+                SharedPreferences sharedPreferences = getSharedPreferences("OneListData", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("userName", username1.getText().toString());
+                editor.commit();
+
                 Buddy.createUser(username, password, null, null, null, null, null, "tag", new BuddyCallback<User>(User.class) {
                     @Override
                     public void completed(BuddyResult<User> result) {

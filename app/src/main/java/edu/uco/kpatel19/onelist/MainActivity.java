@@ -2,11 +2,13 @@ package edu.uco.kpatel19.onelist;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +20,10 @@ public class MainActivity extends AppCompatActivity {
 
     private final int RETURN = 1;
     private TextView register;
+    private TextView yourLists;
+    private static final String TAG = "HERE";
+    private static final String DEFAULT = "-1";
+
 
 
     @Override
@@ -30,15 +36,40 @@ public class MainActivity extends AppCompatActivity {
         Context myContext = getApplicationContext(); // If there is no context, set myContext to null
         Buddy.init(getApplicationContext(), "bbbbbc.FDwkLFntvPmdc", "ccfe27f2-4eee-9bea-8000-0f4b92ec4243");
 
+        SharedPreferences sharedPreferences = getSharedPreferences("OneListData", Context.MODE_PRIVATE);
+        String username = sharedPreferences.getString("userName", DEFAULT);
+
         register = (TextView) findViewById(R.id.textVRegister);
         register.setTextColor(getResources().getColor(R.color.link));
 
-        register.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent register = new Intent(MainActivity.this, RegisterSignIn.class);
-                startActivityForResult(register, RETURN);
-            }
-        });
+        yourLists = (TextView) findViewById(R.id.textVYourLists);
+
+        if(username.equals(DEFAULT)) {
+            Log.i(TAG,"1");
+            register.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent register = new Intent(MainActivity.this, RegisterSignIn.class);
+                    startActivityForResult(register, RETURN);
+                }
+            });
+        }//end if username null
+        else
+        {
+            yourLists.setText(username + "'s Lists");
+            register.setText("Sign Out");
+            register.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent register = new Intent(MainActivity.this, RegisterSignIn.class);
+                    SharedPreferences sharedPreferences = getSharedPreferences("OneListData", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("userName", DEFAULT);
+                    editor.commit();
+                    startActivityForResult(register, RETURN);
+                }
+            });
+
+        }
+        Log.i(TAG,"2");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
