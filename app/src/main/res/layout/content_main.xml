@@ -61,7 +61,7 @@
         android:clickable="true"
         android:inputType="textCapWords"
         android:selectAllOnFocus="false"
-        android:text="@string/add_list"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:hint="Add New List" />
 </LinearLayout>
 

@@ -12,15 +12,24 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.buddy.sdk.Buddy;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private final int RETURN = 1;
     private TextView register;
     private TextView yourLists;
+    private EditText addList;
+    private ArrayAdapter theAdapter;
+    private ArrayList <String> listArray;
+    private android.widget.ListView theLists;
     private static final String TAG = "HERE";
     private static final String DEFAULT = "-1";
 
@@ -43,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
         register.setTextColor(getResources().getColor(R.color.link));
 
         yourLists = (TextView) findViewById(R.id.textVYourLists);
+
+        addList = (EditText)  findViewById(R.id.editTAddList);
+
+        theLists = (ListView) findViewById(R.id.listVYourLists);
+        listArray = new ArrayList<String>();
+        theAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, listArray);
+        theLists.setAdapter(theAdapter);
 
         if(username.equals(DEFAULT)) {
             register.setOnClickListener(new View.OnClickListener() {
@@ -75,8 +91,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                listArray.add(addList.getText().toString());
+                theAdapter.notifyDataSetChanged();
             }
         });
+
+
     }
 
     @Override
