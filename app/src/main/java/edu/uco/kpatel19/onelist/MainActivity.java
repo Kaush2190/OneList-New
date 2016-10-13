@@ -3,7 +3,9 @@ package edu.uco.kpatel19.onelist;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -57,7 +60,17 @@ public class MainActivity extends AppCompatActivity {
 
         theLists = (ListView) findViewById(R.id.listVYourLists);
         listArray = new ArrayList<String>();
-        theAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, listArray);
+        theAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, listArray)
+        {//all this code just to change the text color
+            @NonNull
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView textView = (TextView) view.findViewById(android.R.id.text1);
+                textView.setTextColor(Color.parseColor("#7f7166"));
+                return super.getView(position, convertView, parent);
+            }
+        };
         theLists.setAdapter(theAdapter);
 
         if(username.equals(DEFAULT)) {
@@ -89,8 +102,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
                 listArray.add(addList.getText().toString());
                 theAdapter.notifyDataSetChanged();
             }
