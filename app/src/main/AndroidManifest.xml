@@ -23,7 +23,10 @@
         </activity>
         <activity
             android:name=".RegisterSignIn"
-            android:label="@string/title_activity_register_sign_in"></activity>
+            android:label="@string/title_activity_register_sign_in" />
+        <activity
+            android:name=".YourItems"
+            android:label="@string/title_activity_your_items"></activity>
     </application>
 
 </manifest>

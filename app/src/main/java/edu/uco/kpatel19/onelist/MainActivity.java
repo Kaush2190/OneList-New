@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -96,6 +97,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+            theLists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    TextView textView = (TextView) view;
+                    String listClicked = textView.getText().toString();
+                    Intent intent = new Intent(MainActivity.this, YourItems.class);
+                    intent.putExtra("listClicked", listClicked);
+                    startActivity(intent);
+                }
+            });
+
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -104,12 +117,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 listArray.add(addList.getText().toString());
+                addList.setText("");
                 theAdapter.notifyDataSetChanged();
             }
         });
 
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
